@@ -1,0 +1,23 @@
+<html ng-app="TestApp">
+	<!-- TestApp is a directive that would make angular do work; name of Angular app  -->
+	<head>
+		<title>The MEAN stack</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+	</head>
+	<body ng-controller="MainController as vm">
+		<!-- we can control different parts within html of the app; code inside controller will manage between the body tags  -->
+		
+		<input type="text" ng-model="vm.message" />
+		<br />
+		{{ vm.message }}
+		<br />
+		<ul>
+			<li ng-repeat="person in vm.people">
+				{{ person.name }}
+			</li>
+		</ul>
+		
+		<script src="assets/js/app.js"></script>
+		<!-- the app.js file in public is not controlled by node; node will deliver contents of the file -->
+	</body>
+</html>

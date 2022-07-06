@@ -1,0 +1,175 @@
+--------------------------------------------------------------------------------------------------------------------------
+Hoisting and Environments
+
+Note that due to hoisting, functions and their code is directly put in memory so you can do smth like this:
+
+b();
+function b() {
+    console.log('Called b!');
+}
+
+For variables, you have to use it after initialization. 
+--------------------------------------------------------------------------------------------------------------------------
+Execution Contexts and Scope Chain
+
+Each function creates a new execution context and variables will be checked there before its outer environment. 
+Inner function's outer environment is the outer function. 
+Once function is done, it's execution context goes away. 
+--------------------------------------------------------------------------------------------------------------------------
+Synchronous and Asynchronous Callbacks
+
+JavaScript engine is synchronous. The way JavaScript interacts with other engines is asynchronous. 
+An event queue is placed inside the JavaScript engine that puts events in them from outside the engine.
+Event queue gets processed at once Execution stack is empty.
+--------------------------------------------------------------------------------------------------------------------------
+Objects: Collection of name-value pairs
+
+You can create objects like this: var person = new Object(); (not ideal). Add name value pairs like this: person["firstname"]="Tony"
+You can use the value of a given name using this: person.firstname. 
+You can have objects in objects like this:
+
+person.address = new Object();
+person.address.street = "111 Main St.";
+console.log(person["address"]["state"]);
+
+**Ideal way**: 
+                (here address is also an object)
+var Tony = { 
+    firstname: 'Tony', 
+    lastname: 'Alicea',
+    address: {
+        street: '111 Main St.',
+        city: 'New York',
+        state: 'NY'
+    }
+};
+------------------------------------------
+functions can take objects as parameters. 
+
+Tony.address2 = {
+    street: '333 Second St.'
+}
+// creates an address2 object inside Object Tony
+
+functions are objects so you can add name-value properties to them. 
+
+function greet() {
+    console.log('hi');   
+}
+// this is a function statement that does not return a value unless called 
+
+var anonymousGreet = function() {
+    console.log('hi');   
+}
+// rhs of equal sign has to be an expression therefore it is a function expressoin
+// we are creating an object called anonymousGreet whose address in memory points to the function
+
+anonymousGreet();
+//invokes the function
+
+Immediately Invoked Function Expressions:
+
+var greeting = function(name) {
+    
+    return 'Hello ' + name;
+    
+}('John');
+// function object will be created and called at the same time with parameter John 
+
+
+(function(name) {
+    
+    var greeting = 'Inside IIFE: Hello';
+    console.log(greeting + ' ' + name);
+    
+}(firstname));
+// anything inside brackets is an expression therefore it will evaluate on the fly
+--------------------------------------------------------------------------------------------------------------------------
+JSON
+
+        key differences: you have to put quotation marks around names (properties)
+        Anything JSON valid is valid in JavaScript
+
+console.log(JSON.stringify(objectLiteral));
+// converts object to JSON string
+
+var jsonValue = JSON.parse('{ "firstname": "Mary", "isAProgrammer": true }');
+// will take the string and convert to javascript object
+--------------------------------------------------------------------------------------------------------------------------
+Passing By Value & By Reference
+
+Passing a primitive value by value means that changing the original afterwards doesnt affect the duplicate. 
+Passing by reference an object or function means that changing the original afterwards does affect the duplicate. Unless you change the original object entirely. 
+--------------------------------------------------------------------------------------------------------------------------
+Objects, Functions and this
+
+the 'this' keyword on a function is the one on its outer environment.
+IE in a normal function, 'this' refers to global object. 
+
+var b = function() {
+    console.log(this);   
+    // also points to global object 
+}
+
+if a function is a value (method) in a name-value pair of an object then the 'this' keyword points to the object 
+
+if a function is given arguments that do not match the number of parameters then the rest of parameters are undefined
+
+--------------------------------------------------------------------------------------------------------------------------
+Arrays:
+
+arrays can have elements of different types (primitive, functions, objects ). 
+IE var arr=[ 1, false, function(){}, {name:'Tony'}]
+--------------------------------------------------------------------------------------------------------------------------
+Closures:
+
+A function that does work by returning a function that does the work. The returned function has access to all variables and stuff in outer function due to closure. 
+Create a function expression. IE create a variable and make it equal to the outerfunction. 
+To do work, call the variable with the parameters for the RETURN function. 
+
+function greet(whattosay) {
+    // instead of doing the work inside the function; return a function that does the work 
+   return function(name) {
+       console.log(whattosay + ' ' + name);
+   }
+
+}
+
+var sayHi = greet('Hi');
+sayHi('Tony');
+--------------------------------------------------------------------------------------------------------------------------
+Call, Apply, and Bind
+
+All functions have a call, apply and bind method.
+bind(parameter,...) will use the first parameter as the 'this' object and the next parameters are the fixed parameters in the function.
+bind makes a copy of it so you need it make a variable. IE var logPersonName = logName.bind(person);
+
+call(object,...) will directly execute it with given parameters. 
+
+apply(object, [...] will directly execute with list of parameters 
+--------------------------------------------------------------------------------------------------------------------------
+Prototype
+
+All objects have a prototype property. 
+All objects have a reference to another object and we call that its prototype. 
+Think of the prototype as almost the parent class. 
+It will first check for methods and properies in the object and if not it will check in prototype. 
+
+_.extend(destination_object, other objects...) 
+// adds methods and properties to destination object from other objects
+
+Function Prototypes
+
+Since a function is a object, you can do:
+var john = new Person('John', 'Doe') // where Person is a function with two parameters 
+// new means empty object is created and in this case it calls the function. "This" points to the empty object. 
+// if you do not return anything then the empty object is given, otherwise whatever being return is given. 
+
+You can also make a function have a prototype and then do line 164 to allow an object to essentially inherit and it's prototype. <------- good
+
+
+You can also create objects using var j =Object.create(object) // where Object.create creates an empty object with its prototype being whatever was
+being passed into object.create().
+You can then update the new object. 
+--------------------------------------------------------------------------------------------------------------------------
+Promises, 

@@ -1,0 +1,274 @@
+Command Line Interface:
+
+A utility to type commands to your computer rather than clicking. 
+
+Processors, Machine Code, C++:
+
+MicroProcessor: small machine that can take intructions through a language and carrys them out.
+Intructions is machine code which is spoken by computer processors. 
+Programs we write normally are always compiled into machine code.
+
+NODE IS WRITTEN IN C++ BECAUSE V8 IS WRITTEN IN C++
+
+Echmascript: the standard javascript is based on; how the language should work.
+
+A Javascript Engine: Program that converts javascript code into something computer processor can understand
+The V8 engine has to satisfy the Echmascript guidelines on how the language should work and features it should have.
+
+Javascript code goes into the V8 engine which translates it to machine code
+V8 allows me to write any c++ code available to javascript. IE smth particular in javascript will cause my c++ to run. This allows us to create features.
+
+NodeJS is a c++ program with V8 embeded to add features to javascript allowing it to be a server technology. IE normally u cant use print() but 
+you can do something where print() in javascript invokes some c++ code that gets converted to machine language.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Client Server Model
+
+Server performs services (response); does jobs requested of it
+Client asks for services (request)
+Request and respond is generally in a standard format
+
+IE: Browser is client and Web Server is server. Standard format is HTTP
+
+ Node helps deal with files, databases, and the ability to communicate over the internet, and the ability to accept request and sed responses.
+
+Note that there were some errors in setup. 
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Module: A reusable block of code whose existence does not impact other code;
+Common JS modules: an agreed upon standard for how code modules should be structured 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+First class functions: everything you can do with other types, you can do with functions. 
+Expression: results in a value. 
+Function Expression: creates an function and runs it on the fly. 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Prototypal Inheritance: one object gets access to the properties and methods of another object. Prototype is like the parent. 
+If you use a method that a object does not have, then it searches prototype for it. 
+Function contructors: a normal function that is used to contruct objects. The 'this' keyword points to a new empty object and that object is returned from the function automatically
+
+Passing a primitive value by value means that changing the original afterwards doesnt affect the duplicate. 
+Passing by reference an object or function means that changing the original afterwards does affect the duplicate. Unless you change the original object entirely. 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Revealing Module Pattern: exposing inly the properties and methods you want via a returned object 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+ES6:
+export function greet(){
+                                        greet.js
+}
+
+import * as greet from 'greet';         app.js
+//you can be more specific; pull out specific things from module and rename them with as statement
+greetr.greet();
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Stuff to build a Web Server
+
+Better way to organize code 
+Way to deal with files
+Way to deal with databases
+Ability to communicate over the internet
+Ability To accept requests and send responses 
+A way to deal with work that takes a long time 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Events: something in our app that has happened that we can respond to 
+
+System events: comes from C++ core and deals with events coming from computer system. IE finished reading a file 
+Custom events in NodeJS: inside javascript core; javascript libray of events; deals with events I created myself 
+Event emitter in Node is where we have custom events. 
+
+Magic string: a string that has some special meaning in our code 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Template Literal: A way to concatenate strings in JavaScript in ES6
+
+Note that util.inherits connects prototypes for an object but make sure to use .call or .apply 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+ES6 classes are syntactic sugar: a feature that only changes how we type something, but nothing under the hood.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Asynchronous: more than one process running simultaneously 
+Node is asynchronus while V8 is running synchronously
+
+Libuv in node deals with lower level things; OS things
+Libuv has an event loop where it checks the queue that something has happened; Queue puts all the stuff that says "Hey I finished that"
+Once the event loop sees that there is stuff done in the Queue it does a callback to certain code in V8 that is to run once a certain event is done
+
+JavaScript V8 continues to run as it waits for an event to run outside of it. When V8 is not busy, if an event has occurred then more code is ran in the V8 functions.
+Event Emitter allows us to write custom code for when a certain event runs. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Buffer: a temp holding spot for data being moved from one place to another (limited in size); Buffer generally holds raw binary data
+
+Stream: a sequence of data made available over time (think of it like a river )
+
+Data comes down stream, certain amount is gathered in buffer and that is processed. it happens again until there is no data left in stream
+
+Chunk: a piece of data being sent through a stream 
+
+Streams inherit from event emitters; There are many different types of streams that inherit stream; IE readable, writable from Node's perspective  
+Streams are an abstract (base) class; 
+Abstract class is a constructor you never work directly with, but inherit from;
+We always work with custom streams 
+files are a type of stream
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Binary data: sets of 1s and 0s 
+Everything we store is numeric; A character set is a representation of characters as numbers. These numbers are stored in binary. 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Typed Arrays: helps javascript deal with binary data 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Pipes: connects two streams by writing to one stream what is being read from another 
+pipe is available on a readable stream
+
+Method chaining: a method returns an object so we can keep calling more methods 
+files are not the only types of stream; stream that was doing an internet connection or a stream sending data to database; stream compressing data
+-------------------------------------------------------------------------------------------------------------------------------------------
+TCP/IP
+
+Protocol: is a set of rules two sides (client/server) agree on to use when communicating
+Suppose browser is client. 
+When browser connects with client, they both have IP addresses that identify them
+
+When we make the connection; a socket is openned to connect the two. Socket is a line where information flows. 
+Information itself maybe identified by a protocol such as HTTP or FSP
+TCP breaks socket info into packets and sends it over
+web sockets keep sockets constantly so client and server can send data whenever they want 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Addresses and Ports 
+
+A port is assigned to a program (node js) in the computer system (web server for example) so that it knows what program to send it to 
+A program listens to a port waiting for a packet. Usually you specify the port from the system you are sending from. 
+
+HTTP: Set of rules for data being transferred on the web; format of data transferring via TCP/IP; HTTP request & response
+MIME: a standard for specifying the type of data being sent IE json, text/html, image/jpeg
+
+http-parser found inside in NodeJS ; parses requests and responses and knows what to do with it 
+Node JS can go out in the internet and make HTTP requests 
+
+we can create a server, that can listen to data be coming. 
+
+Use streams wherever you can 
+-------------------------------------------------------------------------------------------------------------------------------------------
+API: a set of tools for building a software application; made available using urls that accept and send data via HTTP and TCP/IP
+URL is called an endpoint; Sometimes endpoint does multiple things by making choices based on HTTP request headers
+Routing: Mapping http requests to content; changes in url might do somethings.
+
+Web Server Checklist
+
+Better way to organize code --Done (modules)
+Way to deal with files -- Done (synchrnous and asynchrouon)
+Way to deal with databases -- NOT DONE
+Ability to communicate over the internet -- Done (TCP IP, messages )
+Ability To accept requests and send responses -- Done
+A way to deal with work that takes a long time (asynch and streams)
+-------------------------------------------------------------------------------------------------------------------------------------------
+Packages and Package Managers
+
+package is a collection of code that you can use in your code. 
+Package manager would automate installing and updating packages. Deals with what version you havw and manages dependencies. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Versioning: specifying what version of a set of code this is. 
+
+1.7.3
+1.7.4 // minor bug fixes, not a big deal
+1.8.0 // still compatible
+2.0.0 // big changes which mean your code might break
+
+NPM: is a node package manager
+NPM comes with node js
+
+to keep track of versions, do npm init in the working directory where your files are.
+Put app name in URL friendly way; specity entry point. Skip everything else. and it will store the details in package.json
+
+npm install moment --save will note what dependencies we use in the app. Install the module u want and it will show up in package.json
+Push only package.json, delete the node_modules.
+
+npm install will look at package.json and install all dependencies required for program to run. 
+
+There are dependencies which are used in development but not when running. IE npm jasmine-node does unit testing. 
+to save it on devDependencies do this npm install jasmine-node --save-dev
+
+there is some dependency for development for all node apps: npm install -g 
+
+what if version is old? npm update
+-------------------------------------------------------------------------------------------------------------------------------------------
+Express makes it easier to create a web server; gives a whole variety of template engines 
+
+Environment Variables: global variables specific to the server our code is living in. 
+
+HTTP Method: specifies the type of action the request wishes to make 
+
+Middleware is software lying between OS and applications running on it 
+
+template engine just translates text into html that should be delivered in http response.
+
+A GET request will have a query string which will appear in the URL.
+
+A POST request will have the query string in the body of the http request. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Restful API and JSon made easy with Express
+
+/api/person posted with JSON format // save to databse 
+
+
+/api/person/:id gets data from database 
+
+/api/person/:id deletes from database 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Structing Apps 
+
+each file in the routes folder simulates some sort of url 
+
+to use the most common template for an app structure do  npm install express-generator -g
+then create an empty folder, go into it and do express **name**
+
+
+
+SQL and Javascript
+Think of a table as an array, each item in array is object
+
+NOSQL and Javascript: 
+MongoDB is a document database 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Better way to organize code --Done (modules)
+Way to deal with files -- Done (synchrnous and asynchrouon)
+Way to deal with databases -- Done
+Ability to communicate over the internet -- Done (TCP IP, messages )
+Ability To accept requests and send responses -- Done
+A way to deal with work that takes a long time (asynch and streams)
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+MEAN STACK - MongoDB, Express, Angular, NodeJS
+
+Mongo - Stores data in documents that look like JSON
+Express - Makes routing, writing APIs, and working with HTTP easier
+AngularJS - User Interface; keep things manageable 
+NodeJS - Handles HTTp reuqests and responses and lots more 
+
+Browser and JavaScript engines are written in C++ 
+JavaScript engine has the ability to manipulate the DOM. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Common problems people have NodejS : writing javascript on client and server;
+
+Node js does not process the angular <script> or the script tage for app.js
